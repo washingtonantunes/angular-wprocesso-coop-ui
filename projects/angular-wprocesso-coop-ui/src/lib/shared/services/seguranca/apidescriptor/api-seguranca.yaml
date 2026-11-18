@@ -1,0 +1,969 @@
+{
+  'openapi': '3.1.0',
+  'info': { 'title': 'WProcesso Coop Seguranca API', 'description': 'Sistema de Gestão de Seguranca.', 'version': 'v1' },
+  'servers': [{ 'url': '/sboot-wprocesso-coop-seguranca-app' }],
+  'tags':
+    [
+      { 'name': 'Usuario', 'description': 'Servicos relacionados a usuario' },
+      { 'name': 'Auditoria', 'description': 'Histórico de alterações das entidades' },
+      { 'name': 'Funcionalidade', 'description': 'Servicos relacionados a funcionalidade' },
+      { 'name': 'Auth', 'description': 'Serviços relacionados a autenticação' },
+      { 'name': 'Adesao', 'description': 'Produtos disponíveis para uma cooperativa' },
+      { 'name': 'Perfil', 'description': 'Servicos relacionados a perfi' },
+    ],
+  'paths':
+    {
+      '/usuarios/{usuarioId}/desativar':
+        {
+          'put':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Desativar Usuario',
+              'operationId': 'desativarUsuario',
+              'parameters': [{ 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200': { 'description': 'Sucesso' },
+                  '400': { 'description': 'Usuário já desativado' },
+                  '404': { 'description': 'Usuário não encontrado' },
+                },
+            },
+        },
+      '/usuarios/{usuarioId}/atribuir-perfis':
+        {
+          'put':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Atribuir Perfis ao Usuario',
+              'operationId': 'atribuirPerfis',
+              'parameters': [{ 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'requestBody':
+                {
+                  'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/AtribuirPerfisRequestDTO' } } },
+                  'required': true,
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/UsuarioResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/usuarios/{usuarioId}/ativar':
+        {
+          'put':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Ativar Usuario',
+              'operationId': 'ativarUsuario',
+              'parameters': [{ 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200': { 'description': 'Sucesso' },
+                  '400': { 'description': 'Usuário já ativado' },
+                  '404': { 'description': 'Usuário não encontrado' },
+                },
+            },
+        },
+      '/usuarios/cooperativa/{usuarioId}/desativar':
+        {
+          'put':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Desativar Usuario de Cooperativa',
+              'operationId': 'desativarUsuarioCooperativa',
+              'parameters': [{ 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200': { 'description': 'Sucesso' },
+                  '400': { 'description': 'Usuário já desativado' },
+                  '404': { 'description': 'Usuário não encontrado' },
+                },
+            },
+        },
+      '/usuarios/cooperativa/{usuarioId}/ativar':
+        {
+          'put':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Ativar Usuario de Cooperativa',
+              'operationId': 'ativarUsuarioCooperativa',
+              'parameters': [{ 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200': { 'description': 'Sucesso' },
+                  '400': { 'description': 'Usuário já ativado' },
+                  '404': { 'description': 'Usuário não encontrado' },
+                },
+            },
+        },
+      '/perfis/{perfilId}/editar':
+        {
+          'put':
+            {
+              'tags': ['Perfil'],
+              'summary': 'Editar Perfil',
+              'operationId': 'editarPerfil',
+              'parameters': [{ 'name': 'perfilId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'requestBody':
+                {
+                  'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/EditarPerfilRequestDTO' } } },
+                  'required': true,
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/PerfilResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/perfis/{perfilId}/atribuir-funcionalidades':
+        {
+          'put':
+            {
+              'tags': ['Perfil'],
+              'summary': 'Atribuir Funcionalidades ao Perfil',
+              'operationId': 'atribuirFuncionalidades',
+              'parameters': [{ 'name': 'perfilId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'requestBody':
+                {
+                  'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/AtribuirFuncionalidadesRequestDTO' } } },
+                  'required': true,
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/PerfilResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/adesoes/cooperativas/{cooperativaId}/produtos/{produtoCodigo}/habilitar':
+        {
+          'put':
+            {
+              'tags': ['Adesao'],
+              'summary': 'Habilitar produto para cooperativa',
+              'operationId': 'habilitar',
+              'parameters':
+                [
+                  { 'name': 'cooperativaId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } },
+                  { 'name': 'produtoCodigo', 'in': 'path', 'required': true, 'schema': { 'type': 'string' } },
+                ],
+              'responses': { '200': { 'description': 'Sucesso' } },
+            },
+        },
+      '/adesoes/cooperativas/{cooperativaId}/produtos/{produtoCodigo}/desabilitar':
+        {
+          'put':
+            {
+              'tags': ['Adesao'],
+              'summary': 'Desabilitar produto para cooperativa',
+              'operationId': 'desabilitar',
+              'parameters':
+                [
+                  { 'name': 'cooperativaId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } },
+                  { 'name': 'produtoCodigo', 'in': 'path', 'required': true, 'schema': { 'type': 'string' } },
+                ],
+              'responses': { '200': { 'description': 'Sucesso' } },
+            },
+        },
+      '/usuarios/cooperativa/adicionar-administrador':
+        {
+          'post':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Criar Administrador de Cooperativa',
+              'operationId': 'adicionarAdministradorCooperativa',
+              'requestBody':
+                {
+                  'content':
+                    { 'application/json': { 'schema': { '$ref': '#/components/schemas/AdicionarAdministradorCooperativaRequestDTO' } } },
+                  'required': true,
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/UsuarioResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/usuarios/adicionar':
+        {
+          'post':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Adicionar Usuario',
+              'operationId': 'adicionarUsuario',
+              'requestBody':
+                {
+                  'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/AdicionarUsuarioRequestDTO' } } },
+                  'required': true,
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/UsuarioResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/perfis/adicionar':
+        {
+          'post':
+            {
+              'tags': ['Perfil'],
+              'summary': 'Adicionar Perfil',
+              'operationId': 'adicionarPerfil',
+              'requestBody':
+                {
+                  'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/AdicionarPerfilRequestDTO' } } },
+                  'required': true,
+                },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/PerfilResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/auth/login':
+        {
+          'post':
+            {
+              'tags': ['Auth'],
+              'summary': 'Login',
+              'description': 'Autentica o usuário e retorna o token JWT com as funcionalidades',
+              'operationId': 'login',
+              'requestBody':
+                { 'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/LoginRequestDTO' } } }, 'required': true },
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/TokenResponseDTO' } } },
+                    },
+                  '403':
+                    {
+                      'description': 'Credenciais inválidas',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/TokenResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/usuarios/{usuarioId}/historico-login-paginado':
+        {
+          'get':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Pesquisar Usuarios Paginado',
+              'operationId': 'pesquisarHistoricosLoginPaginado',
+              'parameters':
+                [
+                  { 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } },
+                  { 'name': 'pageable', 'in': 'query', 'required': true, 'schema': { '$ref': '#/components/schemas/Pageable' } },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content':
+                        {
+                          'application/json':
+                            { 'schema': { '$ref': '#/components/schemas/PageResponseDTOHistoricoLoginPaginadoResponseDTO' } },
+                        },
+                    },
+                },
+            },
+        },
+      '/usuarios/{usuarioId}/buscar':
+        {
+          'get':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Buscar Usuario',
+              'operationId': 'buscarUsuario',
+              'parameters': [{ 'name': 'usuarioId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/UsuarioResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/usuarios/paginado':
+        {
+          'get':
+            {
+              'tags': ['Usuario'],
+              'summary': 'Pesquisar Usuarios Paginado',
+              'operationId': 'pesquisarUsuariosPaginado',
+              'parameters':
+                [
+                  {
+                    'name': 'filtro',
+                    'in': 'query',
+                    'required': true,
+                    'schema': { '$ref': '#/components/schemas/FiltroUsuarioRequestDTO' },
+                  },
+                  { 'name': 'pageable', 'in': 'query', 'required': true, 'schema': { '$ref': '#/components/schemas/Pageable' } },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content':
+                        { 'application/json': { 'schema': { '$ref': '#/components/schemas/PageResponseDTOUsuarioPaginadoResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/perfis/{perfilId}/buscar':
+        {
+          'get':
+            {
+              'tags': ['Perfil'],
+              'summary': 'Buscar Perfil',
+              'operationId': 'buscarPerfil',
+              'parameters': [{ 'name': 'perfilId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/PerfilResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/perfis/paginado':
+        {
+          'get':
+            {
+              'tags': ['Perfil'],
+              'summary': 'Pesquisar Perfis Paginado',
+              'operationId': 'pesquisarPerfisPaginado',
+              'parameters':
+                [
+                  {
+                    'name': 'filtro',
+                    'in': 'query',
+                    'required': true,
+                    'schema': { '$ref': '#/components/schemas/FiltroPerfilRequestDTO' },
+                  },
+                  { 'name': 'pageable', 'in': 'query', 'required': true, 'schema': { '$ref': '#/components/schemas/Pageable' } },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content':
+                        { 'application/json': { 'schema': { '$ref': '#/components/schemas/PageResponseDTOPerfilPaginadoResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/funcionalidades/{funcionalidadeId}/buscar':
+        {
+          'get':
+            {
+              'tags': ['Funcionalidade'],
+              'summary': 'Buscar Funcionalidade',
+              'operationId': 'buscarFuncionalidade',
+              'parameters':
+                [{ 'name': 'funcionalidadeId', 'in': 'path', 'required': true, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/FuncionalidadeResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/funcionalidades/paginado':
+        {
+          'get':
+            {
+              'tags': ['Funcionalidade'],
+              'summary': 'Pesquisar Funcionalidades Paginado',
+              'operationId': 'pesquisarFuncionalidadesPaginado',
+              'parameters':
+                [
+                  {
+                    'name': 'filtro',
+                    'in': 'query',
+                    'required': true,
+                    'schema': { '$ref': '#/components/schemas/FiltroFuncionalidadeRequestDTO' },
+                  },
+                  { 'name': 'pageable', 'in': 'query', 'required': true, 'schema': { '$ref': '#/components/schemas/Pageable' } },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content':
+                        {
+                          'application/json':
+                            { 'schema': { '$ref': '#/components/schemas/PageResponseDTOFuncionalidadePaginadoResponseDTO' } },
+                        },
+                    },
+                },
+            },
+        },
+      '/auth/me':
+        {
+          'get':
+            {
+              'tags': ['Auth'],
+              'summary': 'Me',
+              'description': 'Retorna os dados do usuário autenticado',
+              'operationId': 'me',
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/MeResponseDTO' } } },
+                    },
+                  '401':
+                    {
+                      'description': 'Não autorizado',
+                      'content': { 'application/json': { 'schema': { '$ref': '#/components/schemas/MeResponseDTO' } } },
+                    },
+                },
+            },
+        },
+      '/auditoria':
+        {
+          'get':
+            {
+              'tags': ['Auditoria'],
+              'summary': 'Buscar auditoria',
+              'description': 'Retorna o histórico de alterações de uma entidade por ID',
+              'operationId': 'buscarAuditoria',
+              'parameters':
+                [
+                  {
+                    'name': 'dto',
+                    'in': 'query',
+                    'required': true,
+                    'schema': { '$ref': '#/components/schemas/FiltroAuditoriaRequestDTO' },
+                  },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content':
+                        {
+                          'application/json':
+                            { 'schema': { 'type': 'array', 'items': { '$ref': '#/components/schemas/AuditoriaResponseDTO' } } },
+                        },
+                    },
+                  '400':
+                    {
+                      'description': 'Entidade não suportada ou parâmetros inválidos',
+                      'content':
+                        {
+                          'application/json':
+                            { 'schema': { 'type': 'array', 'items': { '$ref': '#/components/schemas/AuditoriaResponseDTO' } } },
+                        },
+                    },
+                },
+            },
+        },
+      '/adesoes/produtos':
+        {
+          'get':
+            {
+              'tags': ['Adesao'],
+              'summary': 'Listar produtos e situação da adesão',
+              'operationId': 'listarProdutos',
+              'parameters':
+                [{ 'name': 'cooperativaId', 'in': 'query', 'required': false, 'schema': { 'type': 'integer', 'format': 'int64' } }],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'content':
+                        {
+                          'application/json':
+                            { 'schema': { 'type': 'array', 'items': { '$ref': '#/components/schemas/ProdutoSituacaoResponseDTO' } } },
+                        },
+                    },
+                },
+            },
+        },
+    },
+  'components':
+    {
+      'schemas':
+        {
+          'AtribuirPerfisRequestDTO':
+            {
+              'type': 'object',
+              'properties': { 'perfilIds': { 'type': 'array', 'items': { 'type': 'integer', 'format': 'int64' }, 'minItems': 1 } },
+              'required': ['perfilIds'],
+            },
+          'UsuarioResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'email': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'ativo': { 'type': 'boolean' },
+                  'atributos': { 'type': 'object', 'additionalProperties': { 'type': 'string' } },
+                },
+              'required': ['ativo', 'email', 'id', 'nome', 'tipo'],
+            },
+          'EditarPerfilRequestDTO':
+            {
+              'type': 'object',
+              'properties': { 'nome': { 'type': 'string', 'minLength': 1 }, 'descricao': { 'type': 'string' } },
+              'required': ['nome'],
+            },
+          'FuncionalidadeResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'codigo':
+                    {
+                      'type': 'string',
+                      'enum':
+                        [
+                          'USUARIO_PAGINADO_CENTRAL',
+                          'USUARIO_PAGINADO_COOPERATIVA',
+                          'USUARIO_BUSCAR_CENTRAL',
+                          'USUARIO_BUSCAR_COOPERATIVA',
+                          'USUARIO_ADICIONAR_CENTRAL',
+                          'USUARIO_ADICIONAR_COOPERATIVA',
+                          'USUARIO_ATRIBUIR_PERFIS_CENTRAL',
+                          'USUARIO_ATRIBUIR_PERFIS_COOPERATIVA',
+                          'USUARIO_ATIVAR_CENTRAL',
+                          'USUARIO_ATIVAR_COOPERATIVA',
+                          'USUARIO_DESATIVAR_CENTRAL',
+                          'USUARIO_DESATIVAR_COOPERATIVA',
+                          'USUARIO_COOPERATIVA_ADICIONAR_ADMINISTRADOR',
+                          'USUARIO_COOPERATIVA_ATIVAR',
+                          'USUARIO_COOPERATIVA_DESATIVAR',
+                          'HISTORICO_LOGIN_PAGINADO_CENTRAL',
+                          'HISTORICO_LOGIN_PAGINADO_COOPERATIVA',
+                          'PERFIL_PAGINADO_CENTRAL',
+                          'PERFIL_PAGINADO_COOPERATIVA',
+                          'PERFIL_BUSCAR_CENTRAL',
+                          'PERFIL_BUSCAR_COOPERATIVA',
+                          'PERFIL_ADICIONAR_CENTRAL',
+                          'PERFIL_ADICIONAR_COOPERATIVA',
+                          'PERFIL_EDITAR_CENTRAL',
+                          'PERFIL_EDITAR_COOPERATIVA',
+                          'PERFIL_ATRIBUIR_FUNCIONALIDADES_CENTRAL',
+                          'PERFIL_ATRIBUIR_FUNCIONALIDADES_COOPERATIVA',
+                          'FUNCIONALIDADE_PAGINADO_CENTRAL',
+                          'FUNCIONALIDADE_PAGINADO_COOPERATIVA',
+                          'FUNCIONALIDADE_BUSCAR_CENTRAL',
+                          'FUNCIONALIDADE_BUSCAR_COOPERATIVA',
+                          'AUDITORIA_LISTAR_CENTRAL',
+                          'AUDITORIA_LISTAR_COOPERATIVA',
+                          'COOPERATIVA_PAGINADO',
+                          'COOPERATIVA_BUSCAR',
+                          'COOPERATIVA_ADICIONAR',
+                          'COOPERATIVA_EDITAR',
+                          'COOPERATIVA_ATIVAR',
+                          'COOPERATIVA_DESATIVAR',
+                          'COOPERADO_PAGINADO_CENTRAL',
+                          'COOPERADO_PAGINADO_COOPERATIVA',
+                          'COOPERADO_BUSCAR_CENTRAL',
+                          'COOPERADO_BUSCAR_COOPERATIVA',
+                          'COOPERADO_ADICIONAR',
+                          'COOPERADO_EDITAR',
+                          'COOPERADO_ATIVAR',
+                          'COOPERADO_DESATIVAR',
+                          'ADESAO_LISTAR_CENTRAL',
+                          'ADESAO_LISTAR_COOPERATIVA',
+                          'ADESAO_HABILITAR',
+                          'ADESAO_DESABILITAR',
+                        ],
+                    },
+                  'descricao': { 'type': 'string' },
+                  'grupo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA', 'DOCS'] },
+                  'entidade': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'ativo': { 'type': 'boolean' },
+                },
+              'required': ['ativo', 'codigo', 'entidade', 'grupo', 'id', 'nome', 'tipo'],
+            },
+          'PerfilResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'descricao': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'ativo': { 'type': 'boolean' },
+                  'funcionalidades': { 'type': 'array', 'items': { '$ref': '#/components/schemas/FuncionalidadeResponseDTO' } },
+                },
+              'required': ['ativo', 'funcionalidades', 'id', 'nome', 'tipo'],
+            },
+          'AtribuirFuncionalidadesRequestDTO':
+            {
+              'type': 'object',
+              'properties': { 'funcionalidadeIds': { 'type': 'array', 'items': { 'type': 'integer', 'format': 'int64' }, 'minItems': 1 } },
+              'required': ['funcionalidadeIds'],
+            },
+          'AdicionarAdministradorCooperativaRequestDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string', 'minLength': 1 },
+                  'email': { 'type': 'string', 'format': 'email', 'minLength': 1 },
+                  'senha': { 'type': 'string', 'minLength': 1 },
+                },
+              'required': ['cooperativaId', 'email', 'nome', 'senha'],
+            },
+          'AdicionarUsuarioRequestDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'nome': { 'type': 'string', 'minLength': 1 },
+                  'email': { 'type': 'string', 'format': 'email', 'minLength': 1 },
+                  'senha': { 'type': 'string', 'minLength': 1 },
+                },
+              'required': ['email', 'nome', 'senha'],
+            },
+          'AdicionarPerfilRequestDTO':
+            {
+              'type': 'object',
+              'properties': { 'nome': { 'type': 'string', 'minLength': 1 }, 'descricao': { 'type': 'string' } },
+              'required': ['nome'],
+            },
+          'LoginRequestDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'email': { 'type': 'string', 'format': 'email', 'minLength': 1 },
+                  'senha': { 'type': 'string', 'minLength': 1 },
+                  'grupo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA', 'DOCS'] },
+                },
+              'required': ['email', 'grupo', 'senha'],
+            },
+          'TokenResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'token': { 'type': 'string' },
+                  'nome': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'funcionalidades':
+                    {
+                      'type': 'array',
+                      'items':
+                        {
+                          'type': 'string',
+                          'enum':
+                            [
+                              'USUARIO_PAGINADO_CENTRAL',
+                              'USUARIO_PAGINADO_COOPERATIVA',
+                              'USUARIO_BUSCAR_CENTRAL',
+                              'USUARIO_BUSCAR_COOPERATIVA',
+                              'USUARIO_ADICIONAR_CENTRAL',
+                              'USUARIO_ADICIONAR_COOPERATIVA',
+                              'USUARIO_ATRIBUIR_PERFIS_CENTRAL',
+                              'USUARIO_ATRIBUIR_PERFIS_COOPERATIVA',
+                              'USUARIO_ATIVAR_CENTRAL',
+                              'USUARIO_ATIVAR_COOPERATIVA',
+                              'USUARIO_DESATIVAR_CENTRAL',
+                              'USUARIO_DESATIVAR_COOPERATIVA',
+                              'USUARIO_COOPERATIVA_ADICIONAR_ADMINISTRADOR',
+                              'USUARIO_COOPERATIVA_ATIVAR',
+                              'USUARIO_COOPERATIVA_DESATIVAR',
+                              'HISTORICO_LOGIN_PAGINADO_CENTRAL',
+                              'HISTORICO_LOGIN_PAGINADO_COOPERATIVA',
+                              'PERFIL_PAGINADO_CENTRAL',
+                              'PERFIL_PAGINADO_COOPERATIVA',
+                              'PERFIL_BUSCAR_CENTRAL',
+                              'PERFIL_BUSCAR_COOPERATIVA',
+                              'PERFIL_ADICIONAR_CENTRAL',
+                              'PERFIL_ADICIONAR_COOPERATIVA',
+                              'PERFIL_EDITAR_CENTRAL',
+                              'PERFIL_EDITAR_COOPERATIVA',
+                              'PERFIL_ATRIBUIR_FUNCIONALIDADES_CENTRAL',
+                              'PERFIL_ATRIBUIR_FUNCIONALIDADES_COOPERATIVA',
+                              'FUNCIONALIDADE_PAGINADO_CENTRAL',
+                              'FUNCIONALIDADE_PAGINADO_COOPERATIVA',
+                              'FUNCIONALIDADE_BUSCAR_CENTRAL',
+                              'FUNCIONALIDADE_BUSCAR_COOPERATIVA',
+                              'AUDITORIA_LISTAR_CENTRAL',
+                              'AUDITORIA_LISTAR_COOPERATIVA',
+                              'COOPERATIVA_PAGINADO',
+                              'COOPERATIVA_BUSCAR',
+                              'COOPERATIVA_ADICIONAR',
+                              'COOPERATIVA_EDITAR',
+                              'COOPERATIVA_ATIVAR',
+                              'COOPERATIVA_DESATIVAR',
+                              'COOPERADO_PAGINADO_CENTRAL',
+                              'COOPERADO_PAGINADO_COOPERATIVA',
+                              'COOPERADO_BUSCAR_CENTRAL',
+                              'COOPERADO_BUSCAR_COOPERATIVA',
+                              'COOPERADO_ADICIONAR',
+                              'COOPERADO_EDITAR',
+                              'COOPERADO_ATIVAR',
+                              'COOPERADO_DESATIVAR',
+                              'ADESAO_LISTAR_CENTRAL',
+                              'ADESAO_LISTAR_COOPERATIVA',
+                              'ADESAO_HABILITAR',
+                              'ADESAO_DESABILITAR',
+                            ],
+                        },
+                    },
+                  'atributos': { 'type': 'object', 'additionalProperties': { 'type': 'string' } },
+                },
+              'required': ['funcionalidades', 'nome', 'tipo', 'token'],
+            },
+          'Pageable':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'page': { 'type': 'integer', 'format': 'int32', 'minimum': 0 },
+                  'size': { 'type': 'integer', 'format': 'int32', 'minimum': 1 },
+                  'sort': { 'type': 'array', 'items': { 'type': 'string' } },
+                },
+            },
+          'HistoricoLoginPaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'dataHora': { 'type': 'string', 'format': 'date-time' },
+                  'sucesso': { 'type': 'boolean' },
+                  'ip': { 'type': 'string' },
+                  'grupo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA', 'DOCS'] },
+                },
+              'required': ['dataHora', 'grupo', 'id', 'sucesso'],
+            },
+          'PageResponseDTOHistoricoLoginPaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'content': { 'type': 'array', 'items': { '$ref': '#/components/schemas/HistoricoLoginPaginadoResponseDTO' } },
+                  'number': { 'type': 'integer', 'format': 'int32' },
+                  'size': { 'type': 'integer', 'format': 'int32' },
+                  'totalElements': { 'type': 'integer', 'format': 'int64' },
+                  'totalPages': { 'type': 'integer', 'format': 'int32' },
+                  'first': { 'type': 'boolean' },
+                  'last': { 'type': 'boolean' },
+                  'numberOfElements': { 'type': 'integer', 'format': 'int32' },
+                  'empty': { 'type': 'boolean' },
+                },
+            },
+          'FiltroUsuarioRequestDTO':
+            {
+              'type': 'object',
+              'properties': { 'nome': { 'type': 'string' }, 'email': { 'type': 'string' }, 'cooperativaNome': { 'type': 'string' } },
+            },
+          'PageResponseDTOUsuarioPaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'content': { 'type': 'array', 'items': { '$ref': '#/components/schemas/UsuarioPaginadoResponseDTO' } },
+                  'number': { 'type': 'integer', 'format': 'int32' },
+                  'size': { 'type': 'integer', 'format': 'int32' },
+                  'totalElements': { 'type': 'integer', 'format': 'int64' },
+                  'totalPages': { 'type': 'integer', 'format': 'int32' },
+                  'first': { 'type': 'boolean' },
+                  'last': { 'type': 'boolean' },
+                  'numberOfElements': { 'type': 'integer', 'format': 'int32' },
+                  'empty': { 'type': 'boolean' },
+                },
+            },
+          'UsuarioPaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'cooperativaNome': { 'type': 'string' },
+                  'ativo': { 'type': 'boolean' },
+                },
+              'required': ['ativo', 'id', 'nome', 'tipo'],
+            },
+          'FiltroPerfilRequestDTO':
+            {
+              'type': 'object',
+              'properties': { 'nome': { 'type': 'string' }, 'ativo': { 'type': 'boolean' }, 'cooperativaNome': { 'type': 'string' } },
+            },
+          'PageResponseDTOPerfilPaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'content': { 'type': 'array', 'items': { '$ref': '#/components/schemas/PerfilPaginadoResponseDTO' } },
+                  'number': { 'type': 'integer', 'format': 'int32' },
+                  'size': { 'type': 'integer', 'format': 'int32' },
+                  'totalElements': { 'type': 'integer', 'format': 'int64' },
+                  'totalPages': { 'type': 'integer', 'format': 'int32' },
+                  'first': { 'type': 'boolean' },
+                  'last': { 'type': 'boolean' },
+                  'numberOfElements': { 'type': 'integer', 'format': 'int32' },
+                  'empty': { 'type': 'boolean' },
+                },
+            },
+          'PerfilPaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'descricao': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'cooperativaNome': { 'type': 'string' },
+                  'quantidadeFuncionalidades': { 'type': 'integer', 'format': 'int32' },
+                  'ativo': { 'type': 'boolean' },
+                },
+              'required': ['ativo', 'id', 'nome', 'quantidadeFuncionalidades', 'tipo'],
+            },
+          'FiltroFuncionalidadeRequestDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'nome': { 'type': 'string' },
+                  'grupo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA', 'DOCS'] },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'ativo': { 'type': 'boolean' },
+                },
+            },
+          'FuncionalidadePaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'codigo': { 'type': 'string' },
+                  'grupo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA', 'DOCS'] },
+                  'entidade': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'ativo': { 'type': 'boolean' },
+                },
+              'required': ['ativo', 'codigo', 'entidade', 'grupo', 'id', 'nome', 'tipo'],
+            },
+          'PageResponseDTOFuncionalidadePaginadoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'content': { 'type': 'array', 'items': { '$ref': '#/components/schemas/FuncionalidadePaginadoResponseDTO' } },
+                  'number': { 'type': 'integer', 'format': 'int32' },
+                  'size': { 'type': 'integer', 'format': 'int32' },
+                  'totalElements': { 'type': 'integer', 'format': 'int64' },
+                  'totalPages': { 'type': 'integer', 'format': 'int32' },
+                  'first': { 'type': 'boolean' },
+                  'last': { 'type': 'boolean' },
+                  'numberOfElements': { 'type': 'integer', 'format': 'int32' },
+                  'empty': { 'type': 'boolean' },
+                },
+            },
+          'MeResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'nome': { 'type': 'string' },
+                  'tipo': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'cooperativaId': { 'type': 'integer', 'format': 'int64' },
+                  'funcionalidades': { 'type': 'array', 'items': { 'type': 'string' } },
+                  'atributos': { 'type': 'object', 'additionalProperties': { 'type': 'string' } },
+                },
+              'required': ['funcionalidades', 'id', 'nome', 'tipo'],
+            },
+          'FiltroAuditoriaRequestDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'id': { 'type': 'integer', 'format': 'int64' },
+                  'entidade': { 'type': 'string', 'minLength': 1 },
+                  'data': { 'type': 'string', 'format': 'date' },
+                },
+              'required': ['entidade', 'id'],
+            },
+          'AuditoriaResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'dataHora': { 'type': 'string', 'format': 'date-time' },
+                  'tipo': { 'type': 'string', 'enum': ['ADD', 'MOD', 'DEL'] },
+                  'usuario': { 'type': 'string' },
+                  'dados': {},
+                },
+            },
+          'ProdutoSituacaoResponseDTO':
+            {
+              'type': 'object',
+              'properties':
+                {
+                  'codigo': { 'type': 'string' },
+                  'nome': { 'type': 'string' },
+                  'titularOperacao': { 'type': 'string', 'enum': ['CENTRAL', 'COOPERATIVA'] },
+                  'habilitado': { 'type': 'boolean' },
+                },
+              'required': ['codigo', 'habilitado', 'nome', 'titularOperacao'],
+            },
+        },
+    },
+}

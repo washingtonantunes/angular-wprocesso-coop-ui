@@ -1,0 +1,45 @@
+<div class="login-wrapper flex align-items-center justify-content-center min-h-screen">
+  <p-card class="login-card w-full" [style]="{ 'max-width': '420px' }">
+    <div class="flex flex-column align-items-center mb-4">
+      <i class="pi pi-building text-4xl text-primary mb-2"></i>
+      <h2 class="text-900 font-bold text-2xl m-0">WProcesso Coop</h2>
+      <span class="text-600 text-sm mt-1">{{ config.participante }} · acesse com suas credenciais</span>
+    </div>
+
+    <form [formGroup]="formulario" class="flex flex-column gap-3" autocomplete="off">
+      <div class="flex flex-column gap-1">
+        <label class="font-medium text-700">E-mail</label>
+        <input
+          pInputText
+          type="email"
+          formControlName="email"
+          placeholder="seu@email.com"
+          class="w-full"
+          [class.ng-invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+          [class.ng-dirty]="formulario.get('email')?.touched"
+        />
+        @if (formulario.get('email')?.invalid && formulario.get('email')?.touched) {
+          <small class="text-red-500">E-mail inválido ou não informado.</small>
+        }
+      </div>
+
+      <div class="flex flex-column gap-1">
+        <label class="font-medium text-700">Senha</label>
+        <p-password
+          formControlName="senha"
+          placeholder="Sua senha"
+          [feedback]="false"
+          [toggleMask]="true"
+          class="w-full"
+          inputStyleClass="w-full"
+          autocomplete="off"
+        />
+        @if (formulario.get('senha')?.invalid && formulario.get('senha')?.touched) {
+          <small class="text-red-500">Senha não informada.</small>
+        }
+      </div>
+
+      <p-button label="Entrar" (onClick)="onEntrar()" icon="pi pi-sign-in" [fluid]="true" [loading]="carregando()" class="mt-2" />
+    </form>
+  </p-card>
+</div>

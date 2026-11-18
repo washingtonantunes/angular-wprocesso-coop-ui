@@ -1,0 +1,76 @@
+.barra-lateral-wrapper {
+  position: relative;
+}
+
+/*
+ * O conteúdo do <p-drawer> é renderizado com appendTo="body". Por isso os
+ * estilos usam ::ng-deep SEM :host e são escopados pela classe
+ * .barra-lateral-drawer (styleClass do <p-drawer>).
+ */
+
+::ng-deep .barra-lateral-drawer {
+  border-top-right-radius: 22px;
+  border-bottom-right-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #ecfdf5 100%);
+}
+
+::ng-deep .barra-lateral-drawer .p-drawer-content {
+  padding: 0.7rem;
+}
+
+::ng-deep .barra-lateral-drawer .drawer-header {
+  margin: -0.2rem 0 0.5rem;
+  padding: 0.1rem 0.25rem 0.8rem;
+  border-bottom: 1px solid #c9f0e0;
+}
+
+::ng-deep .barra-lateral-drawer .drawer-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #065f46;
+}
+
+::ng-deep .barra-lateral-drawer .drawer-subtitle {
+  margin-top: 0.25rem;
+  font-size: 0.79rem;
+  color: #4b7c6a;
+}
+
+::ng-deep .barra-lateral-drawer .drawer-content {
+  padding: 0.2rem 0.1rem 0;
+}
+
+::ng-deep .barra-lateral-drawer .drawer-footer {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.4rem 0.15rem;
+  border-top: 1px dashed #bfe8d6;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #5b8676;
+  text-align: center;
+}
+
+/* Cores do menu (texto e ícones). */
+::ng-deep .barra-lateral-drawer .menu-lateral .p-panelmenu-header-link {
+  color: #065f46;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+::ng-deep .barra-lateral-drawer .menu-lateral .p-panelmenu-header-icon {
+  color: #059669;
+}
+
+::ng-deep .barra-lateral-drawer .menu-lateral .p-panelmenu-item-link {
+  color: #15563f;
+  border-radius: 10px;
+}
+
+::ng-deep .barra-lateral-drawer .menu-lateral .p-panelmenu-item-icon {
+  color: #059669;
+}
+
+::ng-deep .barra-lateral-drawer .menu-lateral ul[ppanelmenulist] {
+  margin: 0;
+  padding: 0;
+}

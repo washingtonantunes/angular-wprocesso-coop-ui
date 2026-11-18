@@ -1,0 +1,8 @@
+.app-mensagem-erro {
+  display: block;
+  min-height: 1.25rem;
+  margin-top: 0.25rem;
+  color: var(--p-red-500);
+  font-size: 0.85rem;
+  line-height: 1;
+}

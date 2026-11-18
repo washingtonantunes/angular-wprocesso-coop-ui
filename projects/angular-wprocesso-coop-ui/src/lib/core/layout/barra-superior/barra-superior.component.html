@@ -1,0 +1,18 @@
+<div class="barra-superior">
+  <div class="topbar-left">
+    <button pButton icon="pi pi-bars" [text]="true" severity="secondary" pTooltip="Menu" (click)="onAlternarBarraLateral()"></button>
+
+    <div class="brand">
+      <div class="brand-title">WProcesso Coop</div>
+      <div class="brand-subtitle">{{ config.participante }}</div>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="icone-usuario">
+      <i class="pi pi-user"></i>
+      <span>{{ usuarioLogado() }}</span>
+    </div>
+    <button pButton icon="pi pi-sign-out" [text]="true" severity="secondary" pTooltip="Sair" (click)="onLogout()"></button>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+# Ambiente e execução
+
+Angular 20, TypeScript 5.9, PrimeNG 20 e `ng-openapi-gen`. A versão exata de cada dependência está em `package.json` e `package-lock.json`.
+
+```bash
+npm install
+npm run build
+npm run watch
+```
+
+`npm run watch` recompila o pacote `dist/` enquanto o servidor de uma casca está ativo. O projeto é uma biblioteca e não possui `ng serve` próprio.
+
+Os contratos OpenAPI de segurança e cadastro ficam em `projects/angular-wprocesso-coop-ui/src/lib/shared/services/<back>/apidescriptor/`. Atualize o descritor a partir do `/v3/api-docs` do back real e execute `npm run generate:seguranca`, `npm run generate:cadastro` ou `npm run generate:full`. Os arquivos em `api/` são gerados e não devem ser editados. O script ajusta reexportações de tipos após a geração.

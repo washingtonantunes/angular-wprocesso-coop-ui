@@ -1,0 +1,12 @@
+<!-- [steps] slot opcional: fica fixo acima do body (não scrolla). Usar em modais com stepper. -->
+<ng-content select="[steps]" />
+
+<!-- [body] slot: área scrollável principal. Usar <div body> ou <form body class="p-fluid p-3">. -->
+<div class="modal-body p-3">
+  <ng-content select="[body]" />
+</div>
+
+<!-- [footer] slot: usar dois <span footer>: primeiro à esquerda, segundo à direita com class="flex gap-2". -->
+<div class="modal-footer border-top-1 surface-border mx-3 pt-3 pb-3">
+  <ng-content select="[footer]" />
+</div>

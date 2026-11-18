@@ -1,0 +1,16 @@
+<div class="barra-lateral-wrapper">
+  <p-drawer [(visible)]="display" [showCloseIcon]="true" [modal]="true" styleClass="barra-lateral-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">Navegação</div>
+      <div class="drawer-subtitle">Escolha uma área para continuar</div>
+    </div>
+
+    <div class="drawer-content">
+      <p-panelmenu [model]="itens()" class="menu-lateral" />
+    </div>
+
+    <div class="drawer-footer">
+      <span>WProcesso Coop · {{ config.participante }}</span>
+    </div>
+  </p-drawer>
+</div>

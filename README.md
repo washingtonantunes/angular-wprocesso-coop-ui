@@ -1,0 +1,24 @@
+# angular-wprocesso-coop-ui
+
+Biblioteca Angular comum às cascas Central e Cooperativa e às futuras bibliotecas de área do wprocesso-coop. Reúne sessão, login, guards, interceptors, layout, componentes, pipes, diretivas, constantes e clientes gerados das APIs de segurança e cadastro.
+
+## Uso
+
+```bash
+npm install
+npm run build
+```
+
+O pacote compilado fica em `dist/angular-wprocesso-coop-ui`. Todo consumidor importa apenas de `angular-wprocesso-coop-ui`, sua API pública única. As cascas configuram grupo, tipo, rótulo e URLs dos backs com `provideCoopUi(...)`.
+
+## Documentação
+
+| Documento | Conteúdo |
+| --- | --- |
+| [docs/BIBLIOTECAS.md](docs/BIBLIOTECAS.md) | Empacotamento, consumo local, Docker e bibliotecas de área |
+| [docs/AMBIENTE.md](docs/AMBIENTE.md) | Instalação, build, watch e geração dos clientes |
+| [docs/ESTRUTURA.md](docs/ESTRUTURA.md) | Estrutura e API pública |
+| [docs/PADROES.md](docs/PADROES.md) | Convenções de implementação e configuração |
+| [docs/LAYOUT.md](docs/LAYOUT.md) | Layout e componentes comuns |
+| [docs/PRIMENG.md](docs/PRIMENG.md) | PrimeNG e PrimeFlex |
+| [docs/REGRAS.md](docs/REGRAS.md) | Regras de manutenção |
