@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prebuild": "npm run generate:full",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "prewatch": "npm run generate:full",
+    "watch": "ng build --watch",
     "generate:seguranca": "ng-openapi-gen --config projects/angular-wprocesso-coop-ui/src/lib/shared/services/seguranca/apidescriptor/ng-openapi-gen-seguranca.json && node scripts/ajustar-exportacoes-api.mjs",
     "generate:cadastro": "ng-openapi-gen --config projects/angular-wprocesso-coop-ui/src/lib/shared/services/cadastro/apidescriptor/ng-openapi-gen-cadastro.json && node scripts/ajustar-exportacoes-api.mjs",
     "generate:full": "npm run generate:seguranca && npm run generate:cadastro"

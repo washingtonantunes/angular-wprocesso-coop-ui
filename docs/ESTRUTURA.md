@@ -4,4 +4,4 @@
 
 Os clientes gerados continuam separados por back em `shared/services/seguranca/api/` e `shared/services/cadastro/api/`. A API pública os expõe como `SegurancaModels`, `SegurancaServices`, `CadastroModels` e `CadastroServices`, evitando colisões entre nomes dos dois contratos. Nenhum consumidor importa o caminho interno.
 
-A biblioteca não conhece rotas, menus de plataforma, temas, environments ou páginas iniciais das cascas. A casca fornece o menu ao componente de barra lateral e os valores de grupo, tipo, participante e URLs ao `provideCoopUi(...)`.
+A biblioteca não conhece rotas, menus de plataforma, temas, environments ou páginas iniciais das cascas. A casca fornece o menu ao componente de barra lateral e os valores de grupo, tipo, participante e URLs ao `provideCoopUi(...)`. As exposições remotas usam os tipos públicos de rota e menu da biblioteca; o carregamento por endereço fica nas cascas. Veja [MICROFRONT.md](MICROFRONT.md).

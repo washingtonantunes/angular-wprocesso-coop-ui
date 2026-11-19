@@ -1,6 +1,6 @@
 # angular-wprocesso-coop-ui
 
-Biblioteca Angular comum às cascas Central e Cooperativa e às futuras bibliotecas de área do wprocesso-coop. Reúne sessão, login, guards, interceptors, layout, componentes, pipes, diretivas, constantes e clientes gerados das APIs de segurança e cadastro.
+Biblioteca Angular comum às cascas Central e Cooperativa e às aplicações remotas de área do wprocesso-coop. Reúne sessão, login, guards, interceptors, layout, componentes, pipes, diretivas, constantes e clientes gerados das APIs de segurança e cadastro.
 
 ## Uso
 
@@ -13,9 +13,11 @@ O pacote compilado fica em `dist/angular-wprocesso-coop-ui`. Todo consumidor imp
 
 ## Documentação
 
+- [docs/MICROFRONT.md](docs/MICROFRONT.md): contrato das exposições, configuração, execução e publicação independente das áreas.
+
 | Documento | Conteúdo |
 | --- | --- |
-| [docs/BIBLIOTECAS.md](docs/BIBLIOTECAS.md) | Empacotamento, consumo local, Docker e bibliotecas de área |
+| [docs/BIBLIOTECAS.md](docs/BIBLIOTECAS.md) | Empacotamento e consumo local da UI |
 | [docs/AMBIENTE.md](docs/AMBIENTE.md) | Instalação, build, watch e geração dos clientes |
 | [docs/ESTRUTURA.md](docs/ESTRUTURA.md) | Estrutura e API pública |
 | [docs/PADROES.md](docs/PADROES.md) | Convenções de implementação e configuração |

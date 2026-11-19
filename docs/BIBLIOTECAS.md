@@ -1,32 +1,15 @@
-# Bibliotecas Angular do wprocesso-coop
+# Biblioteca comum Angular
 
-## Empacotamento
+`angular-wprocesso-coop-ui` é compilada com `ng-packagr`. Sua única API pública é `projects/angular-wprocesso-coop-ui/src/public-api.ts`. Casca e remoto importam pelo nome `angular-wprocesso-coop-ui`, sem caminhos internos. O Angular recomenda consumir o pacote compilado e usar o build em modo watch durante o desenvolvimento: [Creating libraries](https://angular.dev/tools/libraries/creating-libraries).
 
-Cada biblioteca é um projeto Angular separado, gerado com Angular CLI e compilado com `ng-packagr`. A biblioteca UI tem somente o ponto de entrada principal `projects/angular-wprocesso-coop-ui/src/public-api.ts`. O comando `npm run build` gera o pacote em `dist/angular-wprocesso-coop-ui`. Consumidores importam pelo nome do pacote, nunca por caminhos internos ou arquivos `.ts` de origem. O Angular recomenda que aplicações apontem para a biblioteca compilada e usem `ng build --watch` no desenvolvimento: [Creating libraries](https://angular.dev/tools/libraries/creating-libraries).
+## Compilar e consumir
 
-## Desenvolvimento local e demonstração
+Na primeira instalação, execute `npm install` e `npm run build` nesta pasta. Os clientes de segurança e cadastro são gerados antes do build. Depois, instale as dependências das cascas e do front de área. Para acompanhar alterações da UI sem repetir comandos, mantenha `npm run watch` nesta pasta e `npm run start:dev` em cada aplicação desejada.
 
-Na primeira instalação, dentro de `angular-wprocesso-coop-ui`, execute `npm install` e `npm run build`. Depois, execute `npm install` em cada casca. O `package.json` delas usa `"angular-wprocesso-coop-ui": "file:../angular-wprocesso-coop-ui/dist/angular-wprocesso-coop-ui"`. Como a pasta está fora da casca, o npm cria um vínculo local em `node_modules`. No Windows, criar esse vínculo pode exigir o Modo de Desenvolvedor ou um terminal com permissão para links simbólicos.
+As aplicações do exemplo usam `file:../angular-wprocesso-coop-ui/dist/angular-wprocesso-coop-ui` durante o desenvolvimento local e a demonstração. Em um pipeline real, a plataforma publicaria versões da UI em um repositório de pacotes interno. Essa publicação não está implementada. As aplicações remotas têm builds e publicações próprios; as cascas não declaram dependência de pacote para uma área.
 
-Para trabalhar com a biblioteca, deixe `npm run watch` ativo nela e `npm run start:dev` ativo nas cascas desejadas. O watch recompila a biblioteca quando seus arquivos mudam. As cascas configuram `preserveSymlinks` e excluem `angular-wprocesso-coop-ui` do pré-empacotamento do servidor de desenvolvimento, para observar o pacote vinculado. Não é preciso repetir `npm install` após cada edição. Reinicie o servidor apenas se mudar a lista de dependências ou a configuração do build.
+## Instância única
 
-Para o build reproduzível, execute `npm run build` na UI antes de `npm run build` em cada casca. Uma biblioteca de área entra entre essas etapas: UI, área e casca. A dependência `file:` para a pasta `dist` é a forma de desenvolvimento local e de demonstração deste workspace. Em um pipeline real, as bibliotecas seriam publicadas em um repositório de pacotes interno, com versões controladas. A publicação não está implementada aqui.
+A casca registra `provideCoopUi(...)` uma vez. O Native Federation compartilha Angular, PrimeNG, RxJS e a UI com o remoto. A aplicação de área precisa da UI para compilar, mas não registra outra sessão. Duas cópias da UI criariam dois serviços de sessão, e a tela de produto poderia não enxergar o login da casca. As versões instaladas de casca e área devem coincidir. A casca compara as versões dos pacotes compartilhados em `remoteEntry.json` e ignora uma área incompatível. Confira também os manifestos gerados, o `npm ls angular-wprocesso-coop-ui` e a página de prova, que exibe o usuário da sessão da casca.
 
-## Instância única da UI
-
-Cada casca declara a UI uma única vez em `dependencies` e chama `provideCoopUi(...)` uma única vez na configuração raiz. Bibliotecas de área declaram `angular-wprocesso-coop-ui`, `@angular/*` e PrimeNG em `peerDependencies`. Para compilar a área localmente, a UI entra também em `devDependencies` por `file:` apontando para o pacote compilado. A área não inclui a UI em `dependencies` nem a empacota. Duas cópias da UI criariam duas instâncias dos serviços de sessão; as telas do produto poderiam deixar de enxergar o login da casca. Verifique com `npm ls angular-wprocesso-coop-ui` na casca que há uma única resolução.
-
-## Biblioteca de área
-
-Uma área, por exemplo `angular-wprocesso-coop-credito`, tem um ponto de entrada `central` e outro `cooperativa`. As pastas `<participante>/<produto>/` exportam as rotas e os itens de menu do produto pelo respectivo ponto de entrada. A área importa somente de `angular-wprocesso-coop-ui` e de seus próprios arquivos. A casca Central importa apenas `angular-wprocesso-coop-credito/central`, e a Cooperativa apenas `angular-wprocesso-coop-credito/cooperativa`. O registro em `produtos.registro.ts` adiciona as rotas e o menu; o build da casca inclui o produto.
-
-## Docker
-
-O contexto é a pasta `wprocesso-coop/`, pois o Dockerfile precisa ler a biblioteca e a casca. De dentro dessa pasta:
-
-```bash
-docker build -f angular-wprocesso-coop-central/Dockerfile -t wprocesso-coop-central .
-docker build -f angular-wprocesso-coop-cooperativa/Dockerfile -t wprocesso-coop-cooperativa .
-```
-
-Cada Dockerfile compila a UI em uma etapa, copia o pacote para o caminho relativo esperado pelo `file:` da casca e executa `npm ci` e `npm run build:docker` na casca. O container final contém apenas a aplicação compilada e o Nginx. Quando houver biblioteca de área, o Dockerfile compilará UI, depois área, depois casca, sempre dentro do mesmo contexto.
+O contrato de exposições, a configuração por ambiente, os comandos de execução e a publicação de uma área estão em [MICROFRONT.md](MICROFRONT.md).
