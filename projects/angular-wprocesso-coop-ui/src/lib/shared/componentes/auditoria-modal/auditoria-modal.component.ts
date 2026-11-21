@@ -1,6 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
@@ -12,14 +11,24 @@ import { TagModule } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { AuditoriaResponseDto } from '../../services/seguranca/api/models';
-import { AuditoriaService } from '../../services/seguranca/api/services';
-
 import { ModalLayoutComponent } from '../modal-layout/modal-layout.component';
 
-import { ToastService } from '../../../core/services/toast.service';
-
 type TipoAuditoria = 'ADD' | 'MOD' | 'DEL';
+
+export interface RegistroAuditoria {
+  tipo?: TipoAuditoria;
+  dataHora?: string;
+  usuario?: string;
+  dados?: unknown;
+}
+
+// O componente não chama API: recebe os registros e o estado como signals e devolve a busca
+// por data para quem o abre, que faz a chamada com o cliente gerado da própria aplicação.
+export interface AuditoriaModalData {
+  registros: Signal<RegistroAuditoria[]>;
+  carregando: Signal<boolean>;
+  onBuscar: (filtroData: string | null) => void;
+}
 
 @Component({
   selector: 'app-auditoria-modal',
@@ -39,34 +48,24 @@ type TipoAuditoria = 'ADD' | 'MOD' | 'DEL';
   ],
   providers: [DatePipe],
 })
-export class AuditoriaModalComponent implements OnInit {
+export class AuditoriaModalComponent {
   private readonly ref = inject(DynamicDialogRef);
   private readonly config = inject(DynamicDialogConfig);
-  private readonly auditoriaService = inject(AuditoriaService);
-  private readonly toastService = inject(ToastService);
   private readonly datePipe = inject(DatePipe);
 
-  entidade = this.config.data?.entidade as string;
-  id = this.config.data?.id as number;
+  private readonly data = this.config.data as AuditoriaModalData;
 
-  auditorias = signal<AuditoriaResponseDto[]>([]);
-  carregando = signal(false);
+  readonly auditorias = this.data.registros;
+  readonly carregando = this.data.carregando;
+
   filtroData = signal<Date | null>(null);
 
   exibirDialogJson = false;
   dadosJson: unknown = null;
 
-  ngOnInit(): void {
-    this.carregarAuditoria();
-  }
-
   onBuscar(): void {
-    this.carregarAuditoria();
-  }
-
-  onLimparData(): void {
-    this.filtroData.set(null);
-    this.carregarAuditoria();
+    const dataFormatada = this.filtroData() ? (this.datePipe.transform(this.filtroData(), 'yyyy-MM-dd') ?? null) : null;
+    this.data.onBuscar(dataFormatada);
   }
 
   onFechar(): void {
@@ -102,30 +101,5 @@ export class AuditoriaModalComponent implements OnInit {
       default:
         return tipo ?? '—';
     }
-  }
-
-  private carregarAuditoria(): void {
-    this.carregando.set(true);
-
-    const dataFormatada = this.filtroData() ? (this.datePipe.transform(this.filtroData(), 'yyyy-MM-dd') ?? undefined) : undefined;
-
-    this.auditoriaService
-      .buscarAuditoria({
-        dto: {
-          entidade: this.entidade,
-          id: this.id,
-          data: dataFormatada,
-        },
-      })
-      .subscribe({
-        next: (response) => {
-          this.auditorias.set(response);
-          this.carregando.set(false);
-        },
-        error: (erro: HttpErrorResponse) => {
-          this.toastService.mostrarMsgErro(erro);
-          this.carregando.set(false);
-        },
-      });
   }
 }

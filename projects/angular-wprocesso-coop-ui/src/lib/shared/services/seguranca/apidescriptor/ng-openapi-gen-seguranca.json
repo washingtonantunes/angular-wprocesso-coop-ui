@@ -1,5 +1,6 @@
 {
   "input": "projects/angular-wprocesso-coop-ui/src/lib/shared/services/seguranca/apidescriptor/api-seguranca.yaml",
   "output": "projects/angular-wprocesso-coop-ui/src/lib/shared/services/seguranca/api",
-  "ignoreUnusedModels": true
+  "ignoreUnusedModels": true,
+  "includeTags": ["Auth"]
 }

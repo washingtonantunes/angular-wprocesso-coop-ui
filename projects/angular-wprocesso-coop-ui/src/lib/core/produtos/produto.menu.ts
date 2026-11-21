@@ -1,6 +1,7 @@
 import { MenuItem } from 'primeng/api';
 
 import { AuthService } from '../services/auth.service';
+
 import { ItemMenuProduto } from './produto.model';
 
 export function montarMenuDeProdutos(authService: AuthService, itens: ItemMenuProduto[]): MenuItem[] {

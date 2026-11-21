@@ -4,7 +4,7 @@
 
 ## Compilar e consumir
 
-Na primeira instalação, execute `npm install` e `npm run build` nesta pasta. Os clientes de segurança e cadastro são gerados antes do build. Depois, instale as dependências das cascas e do front de área. Para acompanhar alterações da UI sem repetir comandos, mantenha `npm run watch` nesta pasta e `npm run start:dev` em cada aplicação desejada.
+Na primeira instalação, execute `npm install` e `npm run build` nesta pasta. O cliente de autenticação é gerado antes do build. Depois, instale as dependências das cascas e do front de área. Para acompanhar alterações da UI sem repetir comandos, mantenha `npm run watch` nesta pasta e `npm run start:dev` em cada aplicação desejada.
 
 As aplicações do exemplo usam `file:../angular-wprocesso-coop-ui/dist/angular-wprocesso-coop-ui` durante o desenvolvimento local e a demonstração. Em um pipeline real, a plataforma publicaria versões da UI em um repositório de pacotes interno. Essa publicação não está implementada. As aplicações remotas têm builds e publicações próprios; as cascas não declaram dependência de pacote para uma área.
 

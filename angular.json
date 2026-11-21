@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -28,6 +29,12 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/angular-wprocesso-coop-ui/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/angular-wprocesso-coop-ui/src/**/*.ts", "projects/angular-wprocesso-coop-ui/src/**/*.html"]
           }
         }
       }
