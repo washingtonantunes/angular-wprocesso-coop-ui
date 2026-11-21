@@ -3,8 +3,8 @@ import { Component, computed, inject, output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { AuthService } from '../../services/auth.service';
 import { COOP_UI_CONFIG } from '../../../coop-ui.config';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-barra-superior',

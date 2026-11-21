@@ -1,9 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { COOP_UI_CONFIG } from '../../coop-ui.config';
 
 import { map, Observable } from 'rxjs';
 
+import { COOP_UI_CONFIG } from '../../coop-ui.config';
 import { TokenResponseDto } from '../../shared/services/seguranca/api/models/token-response-dto';
 import { AuthService as SegurancaAuthService } from '../../shared/services/seguranca/api/services/auth.service';
 

@@ -83,7 +83,7 @@ export class ToastService {
   }
 
   private logError(titulo: string, erro: HttpErrorResponse | unknown): void {
-    // eslint-disable-next-line no-console
+     
     console.error(titulo, erro);
   }
 }

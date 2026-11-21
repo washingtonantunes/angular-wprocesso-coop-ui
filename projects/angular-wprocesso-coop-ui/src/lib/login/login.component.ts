@@ -10,9 +10,9 @@ import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 
+import { COOP_UI_CONFIG } from '../coop-ui.config';
 import { AuthService } from '../core/services/auth.service';
 import { ToastService } from '../core/services/toast.service';
-import { COOP_UI_CONFIG } from '../coop-ui.config';
 
 @Component({
   selector: 'app-login',

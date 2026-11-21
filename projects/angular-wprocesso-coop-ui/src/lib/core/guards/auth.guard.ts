@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanMatchFn, Router } from '@angular/router';
 
+import { COOP_UI_CONFIG } from '../../coop-ui.config';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
-import { COOP_UI_CONFIG } from '../../coop-ui.config';
 
 // Usado em canMatch: sem sessão válida a rota não casa, e o código dela não
 // chega a ser carregado.

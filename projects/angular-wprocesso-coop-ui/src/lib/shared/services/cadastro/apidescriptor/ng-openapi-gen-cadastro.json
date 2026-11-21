@@ -1,5 +1,0 @@
-{
-  "input": "projects/angular-wprocesso-coop-ui/src/lib/shared/services/cadastro/apidescriptor/api-cadastro.yaml",
-  "output": "projects/angular-wprocesso-coop-ui/src/lib/shared/services/cadastro/api",
-  "ignoreUnusedModels": true
-}

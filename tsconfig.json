@@ -4,9 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "angular-wprocesso-coop-ui": [
-        "./dist/angular-wprocesso-coop-ui"
-      ]
+      "angular-wprocesso-coop-ui": ["./dist/angular-wprocesso-coop-ui"]
     },
     "strict": true,
     "noImplicitOverride": true,
